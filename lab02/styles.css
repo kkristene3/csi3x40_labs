@@ -18,8 +18,24 @@ h3 {
     margin-bottom: 10px;
 }
 
-p {
+h3 {
+    font-size: 12pt;
+}
+
+p,
+a {
+    padding-left: 3px;
     margin: 5px 0;
+}
+
+a {
+    font-size: 11pt;
+    text-decoration: none;
+    color: inherit;
+}
+
+.contract-info {
+    text-align: center;
 }
 
 .section {
@@ -36,5 +52,13 @@ p {
 
 .experience-item {
     margin-bottom: 15px;
+}
+
+.project-item {
+    margin-bottom: 5px;
+}
+
+#title-name {
+    text-align: center;
 }
 
