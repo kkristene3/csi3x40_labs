@@ -1,0 +1,51 @@
+<html>
+    <html lang="en">
+  
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" 
+            content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
+    <body>
+        <h1>CHECK CONSOLE LOG</h1>
+        <!-- JAVASCRIPT -->
+        <script>
+
+            const pacman = "C";
+            const ghost = "^";
+            const fruit = "@";
+            const pellets = ".";
+
+            function createGame(n) {
+                // variables
+                let arr = new Array(n);
+                let numGhost = n/10;
+                let numFruit = n/10;
+                let numPellets = n - 1 - numGhost - numFruit;
+                
+                // fill array
+                arr.fill(pacman,0, 1);
+                arr.fill(ghost, 1, numGhost+1);
+                arr.fill(fruit, numGhost+1, numGhost+numFruit+1);
+                arr.fill(pellets, numGhost+numFruit+1);
+
+                // shuffle array contents
+                for (var i = n - 1; i > 0; i--) {
+                    var j = Math.floor(Math.random() * (i + 1));
+                    var temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+
+                // output array to console
+                console.log(arr);
+            
+            }
+            
+        </script>
+
+    </body>
+
+</html>
