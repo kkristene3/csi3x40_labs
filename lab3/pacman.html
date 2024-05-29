@@ -70,7 +70,7 @@
                         arr[indexPacman-1] = arr[indexPacman];
                         arr[indexPacman] = temp;
                     } else { // otherwise
-                        console.log("BOOOOO");
+                        throw new Error ("Invalid move!");
                     }
                 } else { // if pacman is the first element
                     temp = arr[arr.length-1]; // store the last element in temp
@@ -84,11 +84,17 @@
                         arr[arr.length-1] = arr[indexPacman];
                         arr[indexPacman] = temp;
                     }else { // otherwise
-                        console.log("BOOO");
+                        throw new Error ("Invalid move!");
                     }
                 }
-                console.log("Score: " + score); // output score
-                return arr; // return game array
+                // if no more pellets
+                if (checkFinish(arr)) {
+                    console.log("Congratulations, you passed the level! Here is a new game.");
+                    console.log(createGame(10));
+                } else {
+                    console.log("Score: " + score); // output score
+                    return arr;
+                }
             }
 
             // MOVE PACMAN TO THE RIGHT
@@ -114,7 +120,7 @@
                         arr[indexPacman+1] = arr[indexPacman];
                         arr[indexPacman] = temp;
                     } else { // otherwise
-                        console.log("BOOOOO");
+                        throw new Error ("Invalid move!");
                     }
                 } else { // pacman is last element in array
                     // store first element in array
@@ -128,11 +134,36 @@
                         arr[0] = arr[indexPacman];
                         arr[indexPacman] = temp;
                     } else {
-                        console.log("BOOOOO");
+                        throw new Error ("Invalid move!");
                     }
                 }
-                console.log("Score: " + score); // output score
-                return arr;
+
+                // if no more pellets
+                if (checkFinish(arr)) {
+                    console.log("Congratulations, you passed the level!/nHere is a new game.");
+                    console.log(createGame(10));
+                } else {
+                    console.log("Score: " + score); // output score
+                    return arr;
+                }
+            }
+
+            function checkFinish(game) {
+                let arr = game;
+                var count = 0;
+
+                // go through loop and check for any pellets
+                for (let i=0; i < arr.length; i++) {
+                    if (arr[i] == pellets) {
+                        count++; // increase count if a pellet is found
+                    }
+                }
+
+                // if there are no more pellets in the game, return true
+                if (count == 0) {
+                    return true;
+                }
+                return false;
             }
             
         </script>
