@@ -1,0 +1,239 @@
+<html>
+    <html lang="en">
+  
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" 
+            content="width=device-width, initial-scale=1.0">
+        <title>LAB 3</title>
+    </head>
+
+    <body>
+        <h1>RUN GAME IN CONSOLE</h1>
+        
+        <!-- JAVASCRIPT -->
+        <script>
+
+            const pacman = "C";
+            const ghost = "^";
+            const fruit = "@";
+            const pellets = ".";
+            let arr = null;
+            var score = 0;
+            var movesMade = 0;
+
+            // CREATE GAME FUNCTION
+            function createGame(n) {
+                // variables
+                arr = new Array(n);
+                let numGhost = 1;
+                let numFruit = 1;
+                let numPellets = n - 1 - numGhost - numFruit;
+                
+                // fill array
+                arr.fill(pacman,0, 1);
+                arr.fill(ghost, 1, numGhost+1);
+                arr.fill(fruit, numGhost+1, numGhost+numFruit+1);
+                arr.fill(pellets, numGhost+numFruit+1);
+
+                // shuffle array contents
+                for (var i = n - 1; i > 0; i--) {
+                    var j = Math.floor(Math.random() * (i + 1));
+                    var temp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = temp;
+                }
+
+                // output array to console
+                console.log("NOTE: The ghost will move either left or right every 3 moves made!");
+                console.log("Total Score: " + score);
+                return arr;
+            }
+
+            // MOVE PACMAN TO THE LEFT
+            function moveLeft(game){
+                // rename game to arr
+                let arr = game;
+                var temp = null;
+
+                // get index of pacman
+                const indexPacman = arr.indexOf(pacman);
+
+                // if pac man is not the first element in the array
+                if (indexPacman != 0) {
+                    // get left of pacman value
+                    temp = arr[indexPacman-1];
+
+                    // if the left element is a pellet, replace pellet with '' and add 1 pt
+                    if (temp == pellets) {
+                        score++;
+                        arr[indexPacman-1] = arr[indexPacman];
+                        arr[indexPacman] = "";
+                        movesMade++;
+                    } else if (temp == "") {
+                        arr[indexPacman-1] = arr[indexPacman];
+                        arr[indexPacman] = temp;
+                        movesMade++;
+                    } else { // otherwise
+                        throw new Error ("Invalid move! You lose!!!");
+                    }
+                } else { // if pacman is the first element
+                    temp = arr[arr.length-1]; // store the last element in temp
+                    
+                    // if the last element is a pellet, replace pellet with '' and add 1 pt
+                    if (temp == pellets) {
+                        score++;
+                        arr[arr.length-1] = arr[indexPacman];
+                        arr[indexPacman] = "";
+                        movesMade++;
+                    } else if (temp == "") {
+                        arr[arr.length-1] = arr[indexPacman];
+                        arr[indexPacman] = temp;
+                        movesMade++;
+                    }else { // otherwise
+                        throw new Error ("Invalid move! You lose!!!");
+                    }
+                }
+                // if no more pellets
+                if (checkFinish(arr)) {
+                    console.log("Congratulations, you passed the level! Here is a new game.");
+                    console.log(createGame(10));
+                } else {
+                    if (movesMade == 3) {
+                        moveGhost(arr);
+                    } else {
+                        console.log("Total Score: " + score); // output score
+                        console.log (arr);
+                    }
+                }
+            }
+
+            // MOVE PACMAN TO THE RIGHT
+            function moveRight(game){
+                // rename game to arr
+                let arr = game;
+                var temp = null;
+
+                // get index of pacman
+                const indexPacman = arr.indexOf(pacman);
+
+                // if packman is not the last element in array
+                if (indexPacman != arr.length-1){
+                    // get right of pacman value
+                    temp = arr[indexPacman+1];
+
+                    // if right value is a pellet, increase score and replace value with ''
+                    if (temp == pellets) {
+                        score++;
+                        arr[indexPacman+1] = arr[indexPacman];
+                        arr[indexPacman] = "";
+                        movesMade++;
+                    } else if (temp == "") { // if there is nothing to the right
+                        arr[indexPacman+1] = arr[indexPacman];
+                        arr[indexPacman] = temp;
+                        movesMade++;
+                    } else { // otherwise
+                        throw new Error ("Invalid move! You lose!!!");
+                    }
+                } else { // pacman is last element in array
+                    // store first element in array
+                    temp = arr[0];
+
+                    if (temp == pellets) {
+                        score++;
+                        arr[0] = arr[indexPacman];
+                        arr[arr.length-1] = "";
+                        movesMade++;
+                    } else if (temp == "") { // if there is nothing to the right
+                        arr[0] = arr[indexPacman];
+                        arr[indexPacman] = temp;
+                        movesMade++;
+                    } else {
+                        throw new Error ("Invalid move! You lose!!!");
+                    }
+                }
+
+                // if no more pellets
+                if (checkFinish(arr)) {
+                    console.log("Congratulations, you passed the level!/nHere is a new game.");
+                    console.log(createGame(10));
+                } else {
+                    if (movesMade == 3) {
+                        moveGhost(arr);
+                    } else {
+                        console.log("Total Score: " + score); // output score
+                        console.log (arr)
+                    }
+                    
+                }
+            }
+
+            // CHECK IF ALL PELLETS HAVE BEEN EATEN IN GAME
+            function checkFinish(game) {
+                let arr = game;
+                var count = 0;
+
+                // go through loop and check for any pellets
+                for (let i=0; i < arr.length; i++) {
+                    if (arr[i] == pellets) {
+                        count++; // increase count if a pellet is found
+                    }
+                }
+
+                // if there are no more pellets in the game, return true
+                if (count == 0) {
+                    return true;
+                }
+                return false;
+            }
+
+            // MOVE GHOST IN ARRAY
+            function moveGhost(game) {
+                let arr = game;
+
+                // if the player has made 3 moves, move the ghost randomly to the left or right one space
+
+                const indexGhost = arr.indexOf(ghost);
+                var temp = null;
+
+                // get a random number between 0 and 1
+                const randomNum = Math.floor(Math.random() * 2);;
+
+                // if random number is 0 - move left
+                if (randomNum == 0) {
+                    if (indexGhost != 0) {
+                        temp = arr[indexGhost-1];
+                        arr[indexGhost-1] = arr[indexGhost];
+                        arr[indexGhost] = temp;
+                    } else {
+                        temp = arr[arr.length-1];
+                        arr[arr.length-1] = arr[indexGhost];
+                        arr[indexGhost] = temp;
+                    }
+
+                } else { // if random number is 1 - move right
+                    if (indexGhost != arr.length-1) {
+                        temp = arr[indexGhost+1];
+                        arr[indexGhost+1] = arr[indexGhost];
+                        arr[indexGhost] = temp;
+                    } else {
+                        temp = arr[0];
+                        arr[0] = arr[indexGhost];
+                        arr[indexGhost] = temp;
+                    }
+                }
+
+                // reset counter
+                movesMade = 0;
+            
+                // output new array once ghost has moved
+                console.log("Total Score: " + score);
+                console.log("NOTE: The ghost has moved!");
+                console.log(arr);
+            }
+            
+        </script>
+
+    </body>
+
+</html>
