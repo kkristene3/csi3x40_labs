@@ -18,6 +18,7 @@
             const ghost = "^";
             const fruit = "@";
             const pellets = ".";
+            var score = 0;
 
             // CREATE GAME FUNCTION
             function createGame(n) {
@@ -42,6 +43,7 @@
                 }
 
                 // output array to console
+                console.log("Score: " + score);
                 return arr;
             }
 
@@ -49,31 +51,87 @@
             function moveLeft(game){
                 // rename game to arr
                 let arr = game;
+                var temp = null;
 
                 // get index of pacman
                 const indexPacman = arr.indexOf(pacman);
 
-                // switch the value of the index to the left of the pacman with the pacman
-                const temp = arr[indexPacman-1];
-                arr[indexPacman-1] = arr[indexPacman];
-                arr[indexPacman] = temp;
+                // if pac man is not the first element in the array
+                if (indexPacman != 0) {
+                    // get left of pacman value
+                    temp = arr[indexPacman-1];
 
-                return arr;
+                    // if the left element is a pellet, replace pellet with '' and add 1 pt
+                    if (temp == pellets) {
+                        score++;
+                        arr[indexPacman-1] = arr[indexPacman];
+                        arr[indexPacman] = "";
+                    } else if (temp == "") {
+                        arr[indexPacman-1] = arr[indexPacman];
+                        arr[indexPacman] = temp;
+                    } else { // otherwise
+                        console.log("BOOOOO");
+                    }
+                } else { // if pacman is the first element
+                    temp = arr[arr.length-1]; // store the last element in temp
+                    
+                    // if the last element is a pellet, replace pellet with '' and add 1 pt
+                    if (temp == pellets) {
+                        score++;
+                        arr[arr.length-1] = arr[indexPacman];
+                        arr[indexPacman] = "";
+                    } else if (temp == "") {
+                        arr[arr.length-1] = arr[indexPacman];
+                        arr[indexPacman] = temp;
+                    }else { // otherwise
+                        console.log("BOOO");
+                    }
+                }
+                console.log("Score: " + score); // output score
+                return arr; // return game array
             }
 
             // MOVE PACMAN TO THE RIGHT
             function moveRight(game){
                 // rename game to arr
                 let arr = game;
+                var temp = null;
 
                 // get index of pacman
                 const indexPacman = arr.indexOf(pacman);
 
-                // switch the value of the index to the right of the pacman with the pacman
-                const temp = arr[indexPacman+1];
-                arr[indexPacman+1] = arr[indexPacman];
-                arr[indexPacman] = temp;
+                // if packman is not the last element in array
+                if (indexPacman != arr.length-1){
+                    // get right of pacman value
+                    temp = arr[indexPacman+1];
 
+                    // if right value is a pellet, increase score and replace value with ''
+                    if (temp == pellets) {
+                        score++;
+                        arr[indexPacman+1] = arr[indexPacman];
+                        arr[indexPacman] = "";
+                    } else if (temp == "") { // if there is nothing to the right
+                        arr[indexPacman+1] = arr[indexPacman];
+                        arr[indexPacman] = temp;
+                    } else { // otherwise
+                        console.log("BOOOOO");
+                    }
+                } else { // pacman is last element in array
+                    // store first element in array
+                    temp = arr[0];
+
+                    if (temp == pellets) {
+                        score++;
+                        arr[0] = arr[indexPacman];
+                        arr[arr.length-1] = "";
+                    } else if (temp == "") { // if there is nothing to the right
+                        arr[0] = arr[indexPacman];
+                        arr[indexPacman] = temp;
+                    } else {
+                        console.log("BOOOOO");
+                    }
+                }
+                console.log("Score: " + score); // output score
                 return arr;
             }
             
