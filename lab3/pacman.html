@@ -10,6 +10,7 @@
 
     <body>
         <h1>CHECK CONSOLE LOG</h1>
+        
         <!-- JAVASCRIPT -->
         <script>
 
@@ -18,11 +19,12 @@
             const fruit = "@";
             const pellets = ".";
 
+            // CREATE GAME FUNCTION
             function createGame(n) {
                 // variables
                 let arr = new Array(n);
-                let numGhost = n/10;
-                let numFruit = n/10;
+                let numGhost = 1;
+                let numFruit = 1;
                 let numPellets = n - 1 - numGhost - numFruit;
                 
                 // fill array
@@ -40,8 +42,39 @@
                 }
 
                 // output array to console
-                console.log(arr);
-            
+                return arr;
+            }
+
+            // MOVE PACMAN TO THE LEFT
+            function moveLeft(game){
+                // rename game to arr
+                let arr = game;
+
+                // get index of pacman
+                const indexPacman = arr.indexOf(pacman);
+
+                // switch the value of the index to the left of the pacman with the pacman
+                const temp = arr[indexPacman-1];
+                arr[indexPacman-1] = arr[indexPacman];
+                arr[indexPacman] = temp;
+
+                return arr;
+            }
+
+            // MOVE PACMAN TO THE RIGHT
+            function moveRight(game){
+                // rename game to arr
+                let arr = game;
+
+                // get index of pacman
+                const indexPacman = arr.indexOf(pacman);
+
+                // switch the value of the index to the right of the pacman with the pacman
+                const temp = arr[indexPacman+1];
+                arr[indexPacman+1] = arr[indexPacman];
+                arr[indexPacman] = temp;
+
+                return arr;
             }
             
         </script>
