@@ -1,10 +1,14 @@
 # Yatzy Game Design
 
 ## Fonts
-- **Primary Font:**Arial, sand-serif
+- **Primary Font:** Arial, sans-serif
 - **Secondary Font:** Gerogia, serif
 
 ## Colours
-- **Primary Colour:** #3498db (Blue)
-- **Secondary Colour:** #2ecc71 (Green)
-- **Accent Colour:** #e74c3c (Red)
+- **Primary Colour:** #FFFFFF (White)
+- **Secondary Colour:** #000000 (Black)
+
+## Dice Look & Feel
+- 1 side of the die will show at a time
+- A number will show on the dice instead of dots
+- White square for the die, black number
