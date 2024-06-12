@@ -2,7 +2,7 @@
 
 ## Fonts
 - **Primary Font:** Arial, sans-serif
-- **Secondary Font:** Gerogia, serif
+- **Secondary Font:** Georgia, serif
 
 ## Colours
 - **Primary Colour:** `#ffffff` (White)
