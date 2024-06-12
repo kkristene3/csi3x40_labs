@@ -5,8 +5,8 @@
 - **Secondary Font:** Gerogia, serif
 
 ## Colours
-- **Primary Colour:** #FFFFFF (White)
-- **Secondary Colour:** #000000 (Black)
+- **Primary Colour:** '#FFFFFF' (White)
+- **Secondary Colour:** '#000000' (Black)
 
 ## Dice Look & Feel
 - 1 side of the die will show at a time
