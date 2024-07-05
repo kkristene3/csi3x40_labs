@@ -19,10 +19,6 @@ for ($i = 0; $i < 3; $i++) {
 }
 ?>
 
-<?php
-require_once('_config.php');
-?>
-
 <!DOCTYPE html>
 <br><br>
 <div id="output">--</div>
