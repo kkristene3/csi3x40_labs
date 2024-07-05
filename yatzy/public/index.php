@@ -5,12 +5,7 @@ use Yatzy\Dice;
 
 $d = new Dice();
 
-/*
-for ($i=1; $i<=5; $i++) {
-  echo "ROLL {$i}: {$d->roll()}<br>";
-}
-*/
-
+// GAME INSTRUCTIONS
 echo "<h1>Yatzy Game<br></h1>";
 echo "<p>The player will roll 5 dices. they will have the option to keep the dice or reroll them up to 3 times.</p>";
 echo "<p>When they have rolled 3 times, the game status will be displayed.</p>";
@@ -24,4 +19,21 @@ for ($i = 0; $i < 3; $i++) {
 }
 ?>
 
+<?php
+require_once('_config.php');
+?>
 
+<!DOCTYPE html>
+<br><br>
+<div id="output">--</div>
+<button id="version">Version</button>
+
+
+<!-- JavaScript -->
+<script>
+  const output = document.getElementById("output");
+  const version = document.getElementById("version");
+  version.onclick = function(e) {
+    output.innerHTML = "Look up version clicked";
+  }
+</script>
