@@ -34,6 +34,18 @@ require_once('_config.php');
   const output = document.getElementById("output");
   const version = document.getElementById("version");
   version.onclick = function(e) {
-    output.innerHTML = "Look up version clicked";
-  }
+
+    const xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+      if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+        if (xmlhttp.status == 200) {
+          output.innerHTML = xmlhttp.responseText;
+        }
+      }
+    };
+
+    xmlhttp.open("GET", "/api.php", true);
+    xmlhttp.send();
+    }
 </script>
