@@ -3,7 +3,6 @@ require_once('_config.php');
 
 use Yatzy\Dice;
 
-$d = new Dice();
 
 // GAME INSTRUCTIONS
 echo "<h1>Yatzy Game<br></h1>";
@@ -21,27 +20,25 @@ for ($i = 0; $i < 3; $i++) {
 
 <!DOCTYPE html>
 <br><br>
-<div id="output">--</div>
-<button id="version">Version</button>
+<div id="die1">--</div>
+<button id="roll">Roll</button>
 
-
-<!-- JavaScript -->
 <script>
-  const output = document.getElementById("output");
-  const version = document.getElementById("version");
-  version.onclick = function(e) {
+const die1 = document.getElementById("die1");
+const roll = document.getElementById("roll");
+roll.onclick = function(e) {
 
-    const xmlhttp = new XMLHttpRequest();
+  const xmlhttp = new XMLHttpRequest();
 
-    xmlhttp.onreadystatechange = function() {
-      if (xmlhttp.readyState == XMLHttpRequest.DONE) {
-        if (xmlhttp.status == 200) {
-          output.innerHTML = xmlhttp.responseText;
-        }
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+      if (xmlhttp.status == 200) {
+        die1.innerHTML = xmlhttp.responseText;
       }
-    };
-
-    xmlhttp.open("GET", "/api.php", true);
-    xmlhttp.send();
     }
+  };
+
+  xmlhttp.open("GET", "/api.php?action=roll", true);
+  xmlhttp.send();
+}
 </script>
